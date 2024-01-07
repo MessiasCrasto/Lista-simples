@@ -1,0 +1,6 @@
+const button=document.querySelector(".botao-add"),input=document.querySelector(".input-task"),listacompleta=document.querySelector(".list-task");let minhalista=[];function adicionartarefa(){const a=input.value.trim();return""===a?void alert("Por favor, insira uma tarefa v\xE1lida."):void(minhalista.push({tarefa:a,concluida:!1}),input.value="",mostrartarefa())}function mostrartarefa(){let a="";minhalista.forEach((b,c)=>{a+=`
+        <li class="task ${b.concluida&&"done"}">
+            <img  src="https://imagepng.org/wp-content/uploads/2019/12/check-icone-1-scaled.png" alt="check" onclick="concluirtarefa(${c})">
+            <p>${b.tarefa}</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/2505/2505006.png" alt="lixeira" onclick="deletariten(${c})">
+        </li>`}),listacompleta.innerHTML=a,localStorage.setItem("lista",JSON.stringify(minhalista))}function concluirtarefa(a){minhalista[a].concluida=!minhalista[a].concluida,mostrartarefa()}function deletariten(a){minhalista.splice(a,1),mostrartarefa()}function recaregar(){const a=localStorage.getItem("lista");a&&(minhalista=JSON.parse(a)),mostrartarefa()}recaregar(),button.addEventListener("click",adicionartarefa);
